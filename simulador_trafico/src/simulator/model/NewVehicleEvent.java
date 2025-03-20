@@ -11,7 +11,6 @@ public class NewVehicleEvent extends Event {
 
 	public NewVehicleEvent(int time, String id, int maxSpeed, int contClass, List<String> itinerary) {
 		super(time);
-		// put the different values in fields
 		this.id = id;
 		this.maxSpeed = maxSpeed;
 		this.contClass = contClass;
@@ -36,8 +35,7 @@ public class NewVehicleEvent extends Event {
 
 	@Override
 	public String toString() {
-
-		return "New Vehicle " + id + " Max Speed " + maxSpeed + " Cont Class " + contClass + " Itinerary " + itinerary;
+		return "New Vehicle '" + id+"'";
 	}
 
 }
