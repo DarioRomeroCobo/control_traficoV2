@@ -24,44 +24,60 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	}
 
-	private void initGui(){
-		
-		JButton fileButton = new JButton("Abrir fichero de eventos");
+	private void initGui() {
+		JToolBar toolBar = new JToolBar();
+
+		JButton fileButton = new JButton(new ImageIcon("resources/icons/open.png"));
+
+		toolBar.add(fileButton);
 
 		fileButton.addActionListener(new ActionListener() {
-        	
-            @Override
-            public void actionPerformed(ActionEvent e) {
-         
-                JFileChooser fileChooser = new JFileChooser();
-                
-                if (fileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION) {
-                	 File file = fileChooser.getSelectedFile();
-                
-                	 try( FileInputStream input = new FileInputStream(file)){
-                		
-                		 _ctrl.reset();
-                		 _ctrl.loadEvents(input);
-                	 }
-                	 
-                	 catch(IllegalArgumentException ex) {
-                			JOptionPane.showMessageDialog(fileButton, ex.getMessage());
-                	
-                	 } catch (FileNotFoundException f) {
-						
-                		 JOptionPane.showMessageDialog(fileButton, f.getMessage());
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+
+				JFileChooser fileChooser = new JFileChooser();
+
+				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+					File file = fileChooser.getSelectedFile();
+
+					try (FileInputStream input = new FileInputStream(file)) {
+
+						_ctrl.reset();
+						_ctrl.loadEvents(input);
 					}
-                	 catch (Exception ex) {
-                         JOptionPane.showMessageDialog(fileButton, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                     }
-                	 
-                	 
-                }
-                
-            }
-	
-        });
-        this.add(fileButton);
+
+					catch (IllegalArgumentException ex) {
+						JOptionPane.showMessageDialog(fileButton, ex.getMessage());
+
+					} catch (FileNotFoundException f) {
+
+						JOptionPane.showMessageDialog(fileButton, f.getMessage());
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(fileButton, "Error inesperado: " + ex.getMessage(), "error",
+								JOptionPane.ERROR_MESSAGE);
+					}
+
+				}
+
+			}
+
+		});
+
+		JButton CO2Button = new JButton(new ImageIcon("resources/icons/co2class.png"));
+		CO2Button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(this, _ctrl, vehicles);
+				dialog.setVisible(true);
+			}
+
+		});
+
+		toolBar.add(CO2Button);
+
+		this.add(toolBar);
 	}
 
 	@Override
