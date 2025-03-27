@@ -17,11 +17,14 @@ import simulator.model.TrafficSimObserver;
 public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	private Controller _ctrl;
-
+	private RoadMap map;
+	
 	ControlPanel(Controller ctrl) {
 		this._ctrl = ctrl;
+		ctrl.addObserver(this);
 		initGui();
-
+		
+		
 	}
 
 	private void initGui() {
@@ -69,7 +72,8 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(this, _ctrl, vehicles);
+				
+				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(this, _ctrl, );
 				dialog.setVisible(true);
 			}
 
@@ -82,7 +86,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
+		update(map);
 
 	}
 

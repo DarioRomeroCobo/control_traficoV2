@@ -44,18 +44,17 @@ public class ChangeCO2ClassDialog extends JDialog {
 		panel.add(new JLabel("Vehicle:"));
 		JComboBox<Vehicle> list = new JComboBox<Vehicle>();
 		list.setSelectedIndex(0);
-		list.addActionListener(this);
+		list.addActionListener({
+			
+			
+			
+			
+		});
 		panel.add(list);
 
 		JPanel panel1 = new JPanel();
 		panel1.add(new JLabel("CO2 Class:"));
-		// JComboBox<Vehicle> list = new JSpinner(new SpinnerNumberModel(0, 0, 10, 1));
-		panel.add(co2ClassSpinner);
-
-		panel.add(new JLabel("Ticks:"));
-		// ticksSpinner = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		// panel.add(ticksSpinner);
-
+		
 		this.add(panel, BorderLayout.WEST);
 		this.add(panel1, BorderLayout.CENTER);
 	}
