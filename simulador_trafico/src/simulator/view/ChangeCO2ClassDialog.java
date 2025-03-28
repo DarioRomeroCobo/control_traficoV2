@@ -8,7 +8,11 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -22,59 +26,86 @@ import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 
 import simulator.control.Controller;
+import simulator.misc.Pair;
+import simulator.model.SetContClassEvent;
 import simulator.model.Vehicle;
 
 public class ChangeCO2ClassDialog extends JDialog {
 
 	private Controller _ctrl;
-
-	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, Vehicle[] vehicles) {
+	private List<Vehicle> vehicles;
+	private int currTime;
+	
+	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles,int currTime) {
 		super(parent, "Change CO2 Class", true);
 		this._ctrl = _ctrl;
-		initGUI(vehicles);
+		this.vehicles=vehicles;
+		this.currTime=currTime;
+		initGUI();
 	}
 
-	private void initGUI(Vehicle[] vehicles) {
-
-		this.setLayout(new BorderLayout());
+	private void initGUI() {
+		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
 		JLabel message = new JLabel(
 				"Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
+		message.setAlignmentX(CENTER_ALIGNMENT);
+		this.add(message);
+		this.add(Box.createVerticalStrut(10));
 
-		this.add(message, BorderLayout.NORTH);
+		JPanel panelVehicle = new JPanel();
+		panelVehicle.setLayout(new BoxLayout(panelVehicle, BoxLayout.X_AXIS));
 
-		JPanel panel = new JPanel();
-		
-		JComboBox<Vehicle> listV = new JComboBox<Vehicle>(vehicles);
-		listV.setSelectedIndex(0);
-		
-		panel.add(new JLabel("Vehicle:"));
-		panel.add(listV);
-		
-		JPanel panel1 = new JPanel();
-	
-		
+		JComboBox<Vehicle> vList = new JComboBox<>(vehicles.toArray(new Vehicle[0]));
+		vList.setSelectedIndex(0);
+
+		panelVehicle.add(new JLabel("Vehicle: "));
+		panelVehicle.add(vList);
+		this.add(panelVehicle);
+		this.add(Box.createVerticalStrut(5));
+
+		JPanel panelCO2 = new JPanel();
+		panelCO2.setLayout(new BoxLayout(panelCO2, BoxLayout.X_AXIS));
+
 		JComboBox<Integer> co2List = new JComboBox<>();
 		for (int i = 0; i <= 10; i++) {
 			co2List.addItem(i);
 		}
-		panel1.add(new JLabel("CO2 Class:"));
-		panel1.add(co2List);
-	
-		JPanel panel2 = new JPanel();
-		
+
+		panelCO2.add(new JLabel("CO2 Class: "));
+		panelCO2.add(co2List);
+		this.add(panelCO2);
+		this.add(Box.createVerticalStrut(5));
+
+		JPanel panelTicks = new JPanel();
+		panelTicks.setLayout(new BoxLayout(panelTicks, BoxLayout.X_AXIS));
+
 		JSpinner spinnerTicks = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-		
-		panel2.add(new JLabel("Ticks:"));
-		panel2.add(spinnerTicks);
-		
-		JButton ButtonC= new JButton("Cancel");
-		
-		JButton ButtonOK= new JButton("OK");
-		
-		this.add(panel, BorderLayout.WEST);
-		this.add(panel1, BorderLayout.CENTER);
-		this.add(panel2, BorderLayout.EAST);
+
+		panelTicks.add(new JLabel("Ticks: "));
+		panelTicks.add(spinnerTicks);
+		this.add(panelTicks);
+		this.add(Box.createVerticalStrut(10));
+
+		JPanel panelButtons = new JPanel();
+		panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.X_AXIS));
+
+		JButton cancelButton = new JButton("Cancel");
+		cancelButton.addActionListener(e -> setVisible(false));
+
+		JButton okButton = new JButton("OK");
+		okButton.addActionListener((ActionEvent e) -> {
+			List<Pair<String, Integer>> si = new ArrayList<>();
+			si.add(new Pair<>(vList.getSelectedItem().toString(), (int) co2List.getSelectedItem()));
+			_ctrl.addEvent(new SetContClassEvent((int) spinnerTicks.getValue()+currTime, si));
+			setVisible(false);
+		});
+
+		panelButtons.add(cancelButton);
+		panelButtons.add(Box.createHorizontalStrut(10)); 
+		panelButtons.add(okButton);
+		this.add(panelButtons);
+
 	}
 
 }
