@@ -73,7 +73,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(this, _ctrl, );
+				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(this, _ctrl,map.getVehicles() );
 				dialog.setVisible(true);
 			}
 
@@ -84,6 +84,13 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		this.add(toolBar);
 	}
 
+	
+	public void update(RoadMap map) {
+		SwingUtilities.invokeLater(() -> {
+			this.map = map;
+			repaint();
+		});
+	}
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
 		update(map);
@@ -92,20 +99,19 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
-		// TODO Auto-generated method stub
+		update(map);
 
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
+		update(map);
 
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
-		// TODO Auto-generated method stub
-
+		update(map);
 	}
 
 }
