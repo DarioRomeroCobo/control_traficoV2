@@ -117,7 +117,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		JButton stopButton = new JButton(new ImageIcon("resources/icons/stop.png"));
 		stopButton.addActionListener(e -> {
-			this._stopped = true;
+			_stopped = true;
 		});
 
 		JButton exitButton = new JButton(new ImageIcon("resources/icons/exit.png"));

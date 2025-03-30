@@ -35,12 +35,12 @@ public class ChangeCO2ClassDialog extends JDialog {
 	private Controller _ctrl;
 	private List<Vehicle> vehicles;
 	private int currTime;
-	
-	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles,int currTime) {
+
+	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles, int currTime) {
 		super(parent, "Change CO2 Class", true);
 		this._ctrl = _ctrl;
-		this.vehicles=vehicles;
-		this.currTime=currTime;
+		this.vehicles = vehicles;
+		this.currTime = currTime;
 		initGUI();
 	}
 
@@ -94,15 +94,18 @@ public class ChangeCO2ClassDialog extends JDialog {
 		cancelButton.addActionListener(e -> setVisible(false));
 
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener((ActionEvent e) -> {
-			List<Pair<String, Integer>> si = new ArrayList<>();
-			si.add(new Pair<>(vList.getSelectedItem().toString(), (int) co2List.getSelectedItem()));
-			_ctrl.addEvent(new SetContClassEvent((int) spinnerTicks.getValue()+currTime, si));
-			setVisible(false);
+		okButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				List<Pair<String, Integer>> si = new ArrayList<>();
+				si.add(new Pair<>(vList.getSelectedItem().toString(), (int) co2List.getSelectedItem()));
+				_ctrl.addEvent(new SetContClassEvent((int) spinnerTicks.getValue() + currTime, si));
+				setVisible(false);
+			}
 		});
 
 		panelButtons.add(cancelButton);
-		panelButtons.add(Box.createHorizontalStrut(10)); 
+		panelButtons.add(Box.createHorizontalStrut(10));
 		panelButtons.add(okButton);
 		this.add(panelButtons);
 
