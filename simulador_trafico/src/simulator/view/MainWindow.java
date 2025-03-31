@@ -1,11 +1,12 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import javax.swing.*;
+import javax.swing.border.TitledBorder;
 
-import extra.jtable.EventsTableModel;
 import simulator.control.Controller;
 
 public class MainWindow extends JFrame {
@@ -23,8 +24,8 @@ public class MainWindow extends JFrame {
 		this.setContentPane(mainPanel);
 
 		mainPanel.add(new ControlPanel(_ctrl), BorderLayout.PAGE_START);
-		mainPanel.add(new StatusBar(_ctrl),BorderLayout.PAGE_END);
-		
+		mainPanel.add(new StatusBar(_ctrl), BorderLayout.PAGE_END);
+
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
 
@@ -40,8 +41,18 @@ public class MainWindow extends JFrame {
 		JPanel eventsView = createViewPanel(new JTable(new EventsTableModel(_ctrl)), "Events");
 		eventsView.setPreferredSize(new Dimension(500, 200));
 		tablesPanel.add(eventsView);
-		// TODO add other tables
-		// ...
+
+		JPanel vehiclesView = createViewPanel(new JTable(new VehiclesTableModel(_ctrl)), "Vehicles");
+		vehiclesView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(vehiclesView);
+
+		JPanel roadsView = createViewPanel(new JTable(new RoadsTableModel(_ctrl)), "Roads");
+		roadsView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(roadsView);
+
+		JPanel junctionsView = createViewPanel(new JTable(new JunctionsTableModel(_ctrl)), "Junction");
+		junctionsView.setPreferredSize(new Dimension(500, 200));
+		tablesPanel.add(junctionsView);
 
 		// maps
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
@@ -49,15 +60,16 @@ public class MainWindow extends JFrame {
 		mapsPanel.add(mapView);
 		// TODO add a map for MapByRoadComponent
 		// ...
-		
+
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
 	}
 
 	private JPanel createViewPanel(JComponent c, String title) {
-		JPanel p = new JPanel( new BorderLayout() );
-            // TODO add a framed border to p with title
+		JPanel p = new JPanel(new BorderLayout());
+		p.setBorder(BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black, 2), title,
+				TitledBorder.LEFT, TitledBorder.TOP));
 		p.add(new JScrollPane(c));
 		return p;
 	}
