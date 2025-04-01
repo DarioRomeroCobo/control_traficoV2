@@ -142,4 +142,8 @@ public class Vehicle extends SimulatedObject {
 		return this.road;
 	}
 
+	public int getTotalDist() {
+		return this.total_dist;
+	}
+
 }

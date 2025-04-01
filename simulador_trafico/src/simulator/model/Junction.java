@@ -109,4 +109,24 @@ public class Junction extends SimulatedObject {
 		report.put("queues", roadsArray);
 		return report;
 	}
+
+	public int getGreenLightIndex() {
+		return greenLightIndex;
+	}
+
+	public List<Road> getIncomingRoads() {
+		return incomingRoads;
+	}
+
+	public Map<Road, List<Vehicle>> getQueueByRoad() {
+		return _queueByRoad;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
+	}
 }

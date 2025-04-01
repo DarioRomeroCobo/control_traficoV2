@@ -52,17 +52,20 @@ public class ChangeCO2ClassDialog extends JDialog {
 		message.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(message);
 		this.add(Box.createVerticalStrut(10));
-
+		
+		JPanel interactivePanel = new JPanel();
+		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
+		
 		JPanel panelVehicle = new JPanel();
 		panelVehicle.setLayout(new BoxLayout(panelVehicle, BoxLayout.X_AXIS));
-
+		
 		JComboBox<Vehicle> vList = new JComboBox<>(vehicles.toArray(new Vehicle[0]));
 		vList.setSelectedIndex(0);
 
 		panelVehicle.add(new JLabel("Vehicle: "));
 		panelVehicle.add(vList);
-		this.add(panelVehicle);
-		this.add(Box.createVerticalStrut(5));
+		interactivePanel.add(panelVehicle);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JPanel panelCO2 = new JPanel();
 		panelCO2.setLayout(new BoxLayout(panelCO2, BoxLayout.X_AXIS));
@@ -74,8 +77,8 @@ public class ChangeCO2ClassDialog extends JDialog {
 
 		panelCO2.add(new JLabel("CO2 Class: "));
 		panelCO2.add(co2List);
-		this.add(panelCO2);
-		this.add(Box.createVerticalStrut(5));
+		interactivePanel.add(panelCO2);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JPanel panelTicks = new JPanel();
 		panelTicks.setLayout(new BoxLayout(panelTicks, BoxLayout.X_AXIS));
@@ -84,8 +87,8 @@ public class ChangeCO2ClassDialog extends JDialog {
 
 		panelTicks.add(new JLabel("Ticks: "));
 		panelTicks.add(spinnerTicks);
-		this.add(panelTicks);
-		this.add(Box.createVerticalStrut(10));
+		interactivePanel.add(panelTicks);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JPanel panelButtons = new JPanel();
 		panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.X_AXIS));
@@ -107,8 +110,10 @@ public class ChangeCO2ClassDialog extends JDialog {
 		panelButtons.add(cancelButton);
 		panelButtons.add(Box.createHorizontalStrut(10));
 		panelButtons.add(okButton);
+		this.add(interactivePanel);
+		this.add((Box.createVerticalStrut(10)));
 		this.add(panelButtons);
-
+		this.pack();
 	}
 
 }

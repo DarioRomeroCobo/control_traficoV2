@@ -17,14 +17,12 @@ import simulator.model.TrafficSimObserver;
 
 public class StatusBar extends JPanel implements TrafficSimObserver {
 
-	private Controller _ctrl;
-
 	private JLabel timeLabel;
 	private JLabel eventsLabel;
 
 	public StatusBar(Controller _ctrl) {
-		this._ctrl = _ctrl;
 		initGui();
+		_ctrl.addObserver(this);
 	}
 
 	private void initGui() {
@@ -57,7 +55,7 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
 		timeLabel.setText("Time: " + time);
-		eventsLabel = new JLabel("No previous event");
+		eventsLabel.setText("No previous event");
 	}
 
 	@Override

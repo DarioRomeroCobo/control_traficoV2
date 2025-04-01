@@ -50,7 +50,7 @@ public class ChangeWeatherDialog extends JDialog {
 		JPanel panelRoad = new JPanel();
 		panelRoad.setLayout(new BoxLayout(panelRoad, BoxLayout.X_AXIS));
 
-		JComboBox<Vehicle> rList = new JComboBox<>(roads.toArray(new Vehicle[0]));
+		JComboBox<Road> rList = new JComboBox<>(roads.toArray(new Road[0]));
 		rList.setSelectedIndex(0);
 
 		panelRoad.add(new JLabel("Road: "));
@@ -99,6 +99,7 @@ public class ChangeWeatherDialog extends JDialog {
 		panelButtons.add(Box.createHorizontalStrut(10));
 		panelButtons.add(okButton);
 		this.add(panelButtons);
+		this.pack();
 
 	}
 

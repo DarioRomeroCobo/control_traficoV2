@@ -16,5 +16,8 @@ public class Pair<T1, T2> {
 	public T2 getSecond() {
 		return _second;
 	}
-
+	
+	public String toString() {
+		return "(" + getFirst() + ", " + getSecond() + ")";
+	}
 }

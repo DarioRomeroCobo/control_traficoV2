@@ -29,10 +29,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	ControlPanel(Controller ctrl) {
 		this._ctrl = ctrl;
-		ctrl.addObserver(this);
 		_stopped = true;
 		buttons = new ArrayList<>();
 		initGui();
+		this._ctrl.addObserver(this);
 
 	}
 
@@ -48,10 +48,10 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			public void actionPerformed(ActionEvent e) {
 
 				JFileChooser fileChooser = new JFileChooser();
-
+				fileChooser.setCurrentDirectory(new File("resources/examples"));
 				if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 					File file = fileChooser.getSelectedFile();
-
+					
 					try (FileInputStream input = new FileInputStream(file)) {
 
 						_ctrl.reset();

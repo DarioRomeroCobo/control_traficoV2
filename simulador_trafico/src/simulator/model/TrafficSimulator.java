@@ -1,5 +1,6 @@
 package simulator.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
@@ -14,6 +15,7 @@ public class TrafficSimulator implements Observable<TrafficSimObserver>{
 	public TrafficSimulator()  {
 		_roadMap = new RoadMap();
 		_events = new PriorityQueue<>();
+		observers= new ArrayList<>();
 		_time = 0;
 	}
 

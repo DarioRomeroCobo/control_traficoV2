@@ -16,14 +16,12 @@ public abstract class Event implements Comparable<Event> {
 		}
 	}
 
-	int getTime() {
+	public int getTime() {
 		return _time;
 	}
 
 	@Override
 	public int compareTo(Event o) {
-		// TODO complete the method to compare events according to their _time, and when
-// _time is equal it compares the _time_stamp;
 		if (this._time < o._time)
 			return -1;
 		if (this._time > o._time)
