@@ -38,9 +38,13 @@ public class ChangeCO2ClassDialog extends JDialog {
 
 	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles, int currTime) {
 		super(parent, "Change CO2 Class", true);
+		
 		this._ctrl = _ctrl;
 		this.vehicles = vehicles;
 		this.currTime = currTime;
+		setLocationRelativeTo(parent);
+		
+
 		initGUI();
 	}
 
@@ -114,6 +118,8 @@ public class ChangeCO2ClassDialog extends JDialog {
 		this.add((Box.createVerticalStrut(10)));
 		this.add(panelButtons);
 		this.pack();
+		
+		
 	}
 
 }

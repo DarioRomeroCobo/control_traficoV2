@@ -28,6 +28,7 @@ public class MainWindow extends JFrame {
 
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
+		
 
 		JPanel tablesPanel = new JPanel();
 		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));

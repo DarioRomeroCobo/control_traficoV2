@@ -1,5 +1,6 @@
 package simulator.view;
 
+import java.awt.BorderLayout;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,7 +38,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	}
 
 	private void initGui() {
-
+		this.setLayout(new BorderLayout());
 		JToolBar toolBar = new JToolBar();
 
 		JButton fileButton = new JButton(new ImageIcon("resources/icons/open.png"));
@@ -85,6 +86,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(null, _ctrl, map.getVehicles(), time);
 				dialog.setVisible(true);
+				
 			}
 
 		});
@@ -144,7 +146,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		buttons.add(runButton);
 		buttons.add(exitButton);
 
-		this.add(toolBar);
+		this.add(toolBar, BorderLayout.CENTER);
 	}
 
 	private void enableToolbar() {
