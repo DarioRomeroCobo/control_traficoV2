@@ -38,60 +38,39 @@ public class ChangeCO2ClassDialog extends JDialog {
 
 	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles, int currTime) {
 		super(parent, "Change CO2 Class", true);
-		
 		this._ctrl = _ctrl;
 		this.vehicles = vehicles;
 		this.currTime = currTime;
-		setLocationRelativeTo(parent);
-		
-
 		initGUI();
+		this.setLocationRelativeTo(parent);
 	}
 
 	private void initGUI() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-		JLabel message = new JLabel(
-				"Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
-		message.setAlignmentX(CENTER_ALIGNMENT);
-		this.add(message);
-		this.add(Box.createVerticalStrut(10));
-		
 		JPanel interactivePanel = new JPanel();
 		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
-		
-		JPanel panelVehicle = new JPanel();
-		panelVehicle.setLayout(new BoxLayout(panelVehicle, BoxLayout.X_AXIS));
-		
+
 		JComboBox<Vehicle> vList = new JComboBox<>(vehicles.toArray(new Vehicle[0]));
 		vList.setSelectedIndex(0);
 
-		panelVehicle.add(new JLabel("Vehicle: "));
-		panelVehicle.add(vList);
-		interactivePanel.add(panelVehicle);
 		interactivePanel.add(Box.createHorizontalStrut(5));
-
-		JPanel panelCO2 = new JPanel();
-		panelCO2.setLayout(new BoxLayout(panelCO2, BoxLayout.X_AXIS));
+		interactivePanel.add(new JLabel("Vehicle: "));
+		interactivePanel.add(vList);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JComboBox<Integer> co2List = new JComboBox<>();
 		for (int i = 0; i <= 10; i++) {
 			co2List.addItem(i);
 		}
-
-		panelCO2.add(new JLabel("CO2 Class: "));
-		panelCO2.add(co2List);
-		interactivePanel.add(panelCO2);
+		interactivePanel.add(new JLabel("CO2 Class: "));
+		interactivePanel.add(co2List);
 		interactivePanel.add(Box.createHorizontalStrut(5));
-
-		JPanel panelTicks = new JPanel();
-		panelTicks.setLayout(new BoxLayout(panelTicks, BoxLayout.X_AXIS));
 
 		JSpinner spinnerTicks = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
 
-		panelTicks.add(new JLabel("Ticks: "));
-		panelTicks.add(spinnerTicks);
-		interactivePanel.add(panelTicks);
+		interactivePanel.add(new JLabel("Ticks: "));
+		interactivePanel.add(spinnerTicks);
 		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JPanel panelButtons = new JPanel();
@@ -114,12 +93,17 @@ public class ChangeCO2ClassDialog extends JDialog {
 		panelButtons.add(cancelButton);
 		panelButtons.add(Box.createHorizontalStrut(10));
 		panelButtons.add(okButton);
+
+		JLabel message = new JLabel(
+				"Schedule an event to change the CO2 class of a vehicle after a given number of simulation ticks from now.");
+		message.setAlignmentX(CENTER_ALIGNMENT);
+		this.add(message);
+		this.add(Box.createVerticalStrut(10));
 		this.add(interactivePanel);
 		this.add((Box.createVerticalStrut(10)));
 		this.add(panelButtons);
+		this.add(Box.createVerticalStrut(10));
 		this.pack();
-		
-		
 	}
 
 }

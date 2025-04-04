@@ -36,47 +36,34 @@ public class ChangeWeatherDialog extends JDialog {
 		this.roads = roads;
 		this.currTime = currTime;
 		initGUI();
+		this.setLocationRelativeTo(parent);
 	}
 
 	private void initGUI() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-		JLabel message = new JLabel(
-				"Schedule an event to change the weather of a road after a given number of simulation ticks from now.");
-		message.setAlignmentX(CENTER_ALIGNMENT);
-		this.add(message);
-		this.add(Box.createVerticalStrut(10));
-
-		JPanel panelRoad = new JPanel();
-		panelRoad.setLayout(new BoxLayout(panelRoad, BoxLayout.X_AXIS));
+		
+		JPanel interactivePanel = new JPanel();
+		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
 
 		JComboBox<Road> rList = new JComboBox<>(roads.toArray(new Road[0]));
 		rList.setSelectedIndex(0);
 
-		panelRoad.add(new JLabel("Road: "));
-		panelRoad.add(rList);
-		this.add(panelRoad);
-		this.add(Box.createVerticalStrut(5));
-
-		JPanel panelWeather = new JPanel();
-		panelWeather.setLayout(new BoxLayout(panelWeather, BoxLayout.X_AXIS));
+		interactivePanel.add(Box.createHorizontalStrut(5));
+		interactivePanel.add(new JLabel("Road: "));
+		interactivePanel.add(rList);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JComboBox<Weather> weatherList = new JComboBox<>(Weather.values());
 
-		panelWeather.add(new JLabel("Weather: "));
-		panelWeather.add(weatherList);
-		this.add(panelWeather);
-		this.add(Box.createVerticalStrut(5));
-
-		JPanel panelTicks = new JPanel();
-		panelTicks.setLayout(new BoxLayout(panelTicks, BoxLayout.X_AXIS));
+		interactivePanel.add(new JLabel("Weather: "));
+		interactivePanel.add(weatherList);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JSpinner spinnerTicks = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
-
-		panelTicks.add(new JLabel("Ticks: "));
-		panelTicks.add(spinnerTicks);
-		this.add(panelTicks);
-		this.add(Box.createVerticalStrut(10));
+		interactivePanel.add(new JLabel("Ticks: "));
+		interactivePanel.add(spinnerTicks);
+		interactivePanel.add(Box.createHorizontalStrut(5));
 
 		JPanel panelButtons = new JPanel();
 		panelButtons.setLayout(new BoxLayout(panelButtons, BoxLayout.X_AXIS));
@@ -85,20 +72,26 @@ public class ChangeWeatherDialog extends JDialog {
 		cancelButton.addActionListener(e -> setVisible(false));
 
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-				List<Pair<String, Weather>> si = new ArrayList<>();
-				si.add(new Pair<>(rList.getSelectedItem().toString(), (Weather) weatherList.getSelectedItem()));
-				_ctrl.addEvent(new SetWeatherEvent((int) spinnerTicks.getValue() + currTime, si));
-				setVisible(false);
-			}
+		okButton.addActionListener((ActionEvent e) -> {
+			List<Pair<String, Weather>> si = new ArrayList<>();
+			si.add(new Pair<>(rList.getSelectedItem().toString(), (Weather) weatherList.getSelectedItem()));
+			_ctrl.addEvent(new SetWeatherEvent((int) spinnerTicks.getValue() + currTime, si));
+			setVisible(false);
 		});
 
 		panelButtons.add(cancelButton);
 		panelButtons.add(Box.createHorizontalStrut(10));
 		panelButtons.add(okButton);
+
+		JLabel message = new JLabel(
+				"Schedule an event to change the weather of a road after a given number of simulation ticks from now.");
+		message.setAlignmentX(CENTER_ALIGNMENT);
+		this.add(message);
+		this.add(Box.createVerticalStrut(10));
+		this.add(interactivePanel);
+		this.add(Box.createVerticalStrut(10));
 		this.add(panelButtons);
+		this.add(Box.createVerticalStrut(10));
 		this.pack();
 
 	}
