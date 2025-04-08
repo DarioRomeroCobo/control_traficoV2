@@ -6,8 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="U:/hlocal/git/control_traficoV2/control_traficoV2/simulador_trafico/lib/commons-cli-1.4.jar"/>
-	<classpathentry kind="lib" path="U:/hlocal/git/control_traficoV2/control_traficoV2/simulador_trafico/lib/json.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adria/git/control_traficoV2/control_traficoV2/control_traficoV2/control_traficoV2/simulador_trafico/lib/commons-cli-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/adria/git/control_traficoV2/control_traficoV2/control_traficoV2/control_traficoV2/simulador_trafico/lib/json.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

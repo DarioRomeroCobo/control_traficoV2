@@ -26,41 +26,48 @@ public class StatusBar extends JPanel implements TrafficSimObserver {
 	}
 
 	private void initGui() {
-		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS)); 
+		this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
 
 		timeLabel = new JLabel("Time: " + 0);
 		this.add(timeLabel);
 
-
 		this.add(Box.createRigidArea(new Dimension(20, 0)));
-		
+
 		eventsLabel = new JLabel("");
 
-		this.add(eventsLabel); 
+		this.add(eventsLabel);
 
+	}
+
+	public void update(Event e, int time) {
+		SwingUtilities.invokeLater(() -> {
+			if (e == null)
+				eventsLabel.setText("");
+			else
+				eventsLabel.setText("Event added (" + e.toString() + ")");
+			timeLabel.setText("Time: " + time);
+			repaint();
+		});
 	}
 
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
-		timeLabel.setText("Time: " + time);
-		eventsLabel.setText("");
+		update(null, time);
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
-		eventsLabel.setText("Event added (" + e.toString() + ")");
-
+		update(e, time);
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
-		timeLabel.setText("Time: " + time);
-		eventsLabel.setText("");
+		update(null, time);
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
-		timeLabel.setText("Time: " + time);
+		update(null, time);
 	}
 
 }
