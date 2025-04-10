@@ -23,7 +23,7 @@ import simulator.model.TrafficSimObserver;
 import simulator.model.Vehicle;
 import simulator.model.VehicleStatus;
 
-public class MapComponent extends JPanel implements TrafficSimObserver {
+public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 
 	private static final long serialVersionUD = 1L;
 
@@ -39,8 +39,9 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 
 	private Image _car;
 
-	MapComponent(Controller ctrl) {
+	 MapByRoadComponent(Controller ctrl) {
 		initGUI();
+		setPreferredSize(new Dimension (300, 200));
 		ctrl.addObserver(this);
 	}
 
@@ -74,13 +75,14 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	private void drawRoads(Graphics g) {
+		int i=0;
 		for (Road r : _map.getRoads()) {
 
 			// the road goes from (x1,y1) to (x2,y2)
-			int x1 = r.getSrc().getX();
-			int y1 = r.getSrc().getY();
-			int x2 = r.getDest().getX();
-			int y2 = r.getDest().getY();
+			int x1 =50;
+			int y1 =(i+1)*50;
+			int x2 = getWidth()-100;
+			int y2 = (i+1)*50;
 
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
@@ -99,7 +101,10 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			// draw line from (x1,y1) to (x2,y2) with arrow of color arrowColor and line of
 			// color roadColor. The size of the arrow is 15px length and 5 px width
 			drawLineWithArrow(g, x1, y1, x2, y2, 15, 5, roadColor, arrowColor);
+			i++;
+			
 		}
+		
 
 	}
 
@@ -108,7 +113,7 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
 
 				Road r = v.getRoad();
-	
+				//x = x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double)r.getLength() ));
 				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
 				// corresponding road. It is calculated relatively to the length of the road, and
 				// the location on the vehicle.
@@ -209,7 +214,6 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		}
 		return i;
 	}
-
 	public void update(RoadMap map) {
 		SwingUtilities.invokeLater(() -> {
 			_map = map;
@@ -217,24 +221,29 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 		});
 	}
 
+	
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
 		update(map);
+		
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
 		update(map);
+		
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
 		update(map);
+		
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
 		update(map);
+		
 	}
 
 }
