@@ -12,11 +12,10 @@ import simulator.model.Event;
 import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
-import simulator.model.Vehicle;
-import simulator.model.VehicleStatus;
 
 public class RoadsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
+	private static final long serialVersionUID = 1L;
 	private String[] _colNames = { "Id", "Length", "Weather", "Max.Speed", "Speed Limit", "Total C02", "CO2 Limit" };
 	private List<Road> _roads;
 

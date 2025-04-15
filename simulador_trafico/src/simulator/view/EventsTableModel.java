@@ -1,15 +1,10 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import javax.swing.BorderFactory;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.AbstractTableModel;
 
 import simulator.control.Controller;
@@ -19,7 +14,7 @@ import simulator.model.TrafficSimObserver;
 
 public class EventsTableModel extends AbstractTableModel implements TrafficSimObserver {
 
-	
+	private static final long serialVersionUID = 1L;
 	private String[] _colNames = { "Time", "Desc." };
 	private List<Event> _events;
 

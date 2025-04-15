@@ -7,7 +7,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JToolBar;
 import javax.swing.SwingUtilities;
 
 import simulator.control.Controller;
@@ -17,6 +16,7 @@ import simulator.model.TrafficSimObserver;
 
 public class StatusBar extends JPanel implements TrafficSimObserver {
 
+	private static final long serialVersionUID = 1L;
 	private JLabel timeLabel;
 	private JLabel eventsLabel;
 

@@ -1,28 +1,19 @@
 package simulator.view;
 
-import java.awt.BorderLayout;
-import java.awt.Button;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.JToolBar;
 import javax.swing.SpinnerNumberModel;
 
 import simulator.control.Controller;
@@ -32,6 +23,7 @@ import simulator.model.Vehicle;
 
 public class ChangeCO2ClassDialog extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private Controller _ctrl;
 	private List<Vehicle> vehicles;
 	private int currTime;

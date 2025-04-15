@@ -25,7 +25,7 @@ import simulator.model.VehicleStatus;
 
 public class MapComponent extends JPanel implements TrafficSimObserver {
 
-	private static final long serialVersionUD = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private static final int _JRADIUS = 10;
 
@@ -38,6 +38,8 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	private RoadMap _map;
 
 	private Image _car;
+	
+	
 
 	MapComponent(Controller ctrl) {
 		initGUI();

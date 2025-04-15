@@ -2,7 +2,6 @@ package simulator.view;
 
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,13 +18,12 @@ import javax.swing.SpinnerNumberModel;
 import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Road;
-import simulator.model.SetContClassEvent;
 import simulator.model.SetWeatherEvent;
-import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ChangeWeatherDialog extends JDialog {
 
+	private static final long serialVersionUID = 1L;
 	private Controller _ctrl;
 	private List<Road> roads;
 	private int currTime;

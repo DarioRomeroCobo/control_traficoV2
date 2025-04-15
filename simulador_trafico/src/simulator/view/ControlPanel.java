@@ -1,7 +1,6 @@
 package simulator.view;
 
 import java.awt.BorderLayout;
-import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,12 +14,12 @@ import javax.swing.*;
 
 import simulator.control.Controller;
 import simulator.model.Event;
-import simulator.model.Road;
 import simulator.model.RoadMap;
 import simulator.model.TrafficSimObserver;
 
 public class ControlPanel extends JPanel implements TrafficSimObserver {
 
+	private static final long serialVersionUID = 1L;
 	private Controller _ctrl;
 	private RoadMap map;
 	private Collection<Event> events;
