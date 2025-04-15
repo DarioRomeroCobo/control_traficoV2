@@ -71,7 +71,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 	private void drawMap(Graphics g) {
 		drawRoads(g);
 		drawVehicles(g);
-		drawJunctions(g);
+		//drawJunctions(g);
 	}
 
 	private void drawRoads(Graphics g) {
@@ -83,7 +83,9 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			int y1 =(i+1)*50;
 			int x2 = getWidth()-100;
 			int y2 = (i+1)*50;
-
+			
+			drawJunction(g, r.getSrc(), i, false);
+			drawJunction(g, r.getDest(), i, true);
 			// choose a color for the arrow depending on the traffic light of the road
 			Color arrowColor = _RED_LIGHT_COLOR;
 			int idx = r.getDest().getGreenLightIndex();
@@ -107,7 +109,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 		
 
 	}
-
+	
 	private void drawVehicles(Graphics g) {
 		for (Vehicle v : _map.getVehicles()) {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
@@ -138,7 +140,24 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			}
 		}
 	}
+	
+	 // En este metodo i es la fila de la carretera y src_dest es false si es src y true si es dest
+	private void drawJunction(Graphics g, Junction j, int i, boolean src_dest) {
 
+			// (x,y) are the coordinates of the junction
+			int x = (src_dest) ? getWidth()-100 : 50; //La columna depende de src_dest
+			int y = (i+1)*50;
+
+			// draw a circle with center at (x,y) with radius _JRADIUS
+			g.setColor(_JUNCTION_COLOR);
+			g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+
+			// draw the junction's identifier at (x,y)
+			g.setColor(_JUNCTION_LABEL_COLOR);
+			g.drawString(j.getId(), x, y);
+		
+	}
+/*
 	private void drawJunctions(Graphics g) {
 		for (Junction j : _map.getJunctions()) {
 
@@ -155,7 +174,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			g.drawString(j.getId(), x, y);
 		}
 	}
-
+*/
 	// this method is used to update the preffered and actual size of the component,
 	// so when we draw outside the visible area the scrollbars show up
 	private void updatePrefferedSize() {
