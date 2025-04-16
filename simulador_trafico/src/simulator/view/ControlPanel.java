@@ -80,10 +80,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(getAncestor(), _ctrl, map.getVehicles(), time);
-				dialog.setVisible(true);
-			}
+				try {
+					ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(getAncestor(), _ctrl, map.getVehicles(),
+							time);
+					dialog.setVisible(true);
 
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(getAncestor(), "ERROR: no events loaded");
+				}
+			}
 		});
 
 		JButton weatherButton = new JButton(new ImageIcon("resources/icons/weather.png"));
@@ -91,8 +96,12 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ChangeWeatherDialog dialog = new ChangeWeatherDialog(getAncestor(), _ctrl, map.getRoads(), time);
-				dialog.setVisible(true);
+				try {
+					ChangeWeatherDialog dialog = new ChangeWeatherDialog(getAncestor(), _ctrl, map.getRoads(), time);
+					dialog.setVisible(true);
+				} catch (IllegalArgumentException ex) {
+					JOptionPane.showMessageDialog(getAncestor(), "ERROR: no events loaded");
+				}
 			}
 
 		});

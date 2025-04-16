@@ -64,7 +64,6 @@ public class Main {
 			parseInFileOption(line);
 			parseOutFileOption(line);
 			parseTickOption(line);
-			parseModeOption(line);
 			// if there are some remaining arguments, then something wrong is
 			// provided in the command line!
 			//
