@@ -50,9 +50,9 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 	private Image _cont4;
 	private Image _cont5;
 
-	 MapByRoadComponent(Controller ctrl) {
+	MapByRoadComponent(Controller ctrl) {
 		initGUI();
-		setPreferredSize(new Dimension (300, 200));
+		setPreferredSize(new Dimension(300, 200));
 		ctrl.addObserver(this);
 	}
 
@@ -95,18 +95,18 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 	}
 
 	private void drawRoads(Graphics g) {
-		int i=0;
+		int i = 0;
 		for (Road r : _map.getRoads()) {
 
 			// the road goes from (x1,y1) to (x2,y2)
-			int x1 =50;
-			int y1 =(i+1)*50;
-			int x2 = getWidth()-100;
-			int y2 = (i+1)*50;
-			
+			int x1 = 50;
+			int y1 = (i + 1) * 50;
+			int x2 = getWidth() - 100;
+			int y2 = (i + 1) * 50;
+
 			drawJunction(g, r.getSrc(), i, false);
 			drawJunction(g, r.getDest(), i, true);
-			
+
 			for (Vehicle v : r.getVehicles()) {
 				drawVehicle(g, v, i);
 			}
@@ -128,63 +128,63 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 			// color roadColor. The size of the arrow is 15px length and 5 px width
 			drawLineWithArrow(g, x1, y1, x2, y2, 15, 5, roadColor, arrowColor);
 			g.setColor(Color.BLACK);
-			g.drawString(r.getId(), x1-35, y1+4);
+			g.drawString(r.getId(), x1 - 35, y1 + 4);
 			drawWeather(g, r, i);
 			drawCont(g, r, i);
 			i++;
-			
+
 		}
-		
 
 	}
-	
-	
+
 	private void drawVehicle(Graphics g, Vehicle v, int i) {
-			if (v.getStatus() != VehicleStatus.ARRIVED) {
+		if (v.getStatus() != VehicleStatus.ARRIVED) {
 
-				Road r = v.getRoad();
-				//x = x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double)r.getLength() ));
-				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
-				// corresponding road. It is calculated relatively to the length of the road, and
-				// the location on the vehicle.
-				int x1 = 50;
-				//int y1 = r.getSrc().getY();
-				int x2 = getWidth()-100;
-				//int y2 = r.getDest().getY();
+			Road r = v.getRoad();
+			// x = x1 + (int) ((x2 - x1) * ((double) v.getLocation() / (double)r.getLength()
+			// ));
+			// The calculation below compute the coordinate (vX,vY) of the vehicle on the
+			// corresponding road. It is calculated relatively to the length of the road,
+			// and
+			// the location on the vehicle.
+			int x1 = 50;
+			// int y1 = r.getSrc().getY();
+			int x2 = getWidth() - 100;
+			// int y2 = r.getDest().getY();
 
-				double f = ((float)v.getLocation()) / r.getLength();
-				int vX = (int)(x1 + (x2-x1)*f); 
-				//int vY = (int)(y1 + (y2-y1)*f);
-				int vY = (int)(i+1)*50;
+			double f = ((float) v.getLocation()) / r.getLength();
+			int vX = (int) (x1 + (x2 - x1) * f);
+			// int vY = (int)(y1 + (y2-y1)*f);
+			int vY = (int) (i + 1) * 50;
 
-				// Choose a color for the vehcile's label and background, depending on its
-				// contamination class
-				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
-				g.setColor(new Color(0, vLabelColor, 0));
-				
-				// draw an image of a car (with circle as background) and it identifier
-				//g.fillOval(vX - 1, vY - 6, 14, 14);
-				g.drawImage(_car, vX, vY-9, 12, 12, this);
-				g.drawString(v.getId(), vX, vY - 6);
-			}
+			// Choose a color for the vehcile's label and background, depending on its
+			// contamination class
+			int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
+			g.setColor(new Color(0, vLabelColor, 0));
+
+			// draw an image of a car (with circle as background) and it identifier
+			// g.fillOval(vX - 1, vY - 6, 14, 14);
+			g.drawImage(_car, vX, vY - 9, 12, 12, this);
+			g.drawString(v.getId(), vX, vY - 6);
+		}
 	}
-	
-	
-	 // En este metodo i es la fila de la carretera y src_dest es: false si es src y true si es dest
+
+	// En este metodo i es la fila de la carretera y src_dest es: false si es src y
+	// true si es dest
 	private void drawJunction(Graphics g, Junction j, int i, boolean src_dest) {
 
-			// (x,y) are the coordinates of the junction
-			int x = (src_dest) ? getWidth()-100 : 50; //La columna depende de src_dest
-			int y = (i+1)*50;
+		// (x,y) are the coordinates of the junction
+		int x = (src_dest) ? getWidth() - 100 : 50; // La columna depende de src_dest
+		int y = (i + 1) * 50;
 
-			// draw a circle with center at (x,y) with radius _JRADIUS
-			g.setColor(_JUNCTION_COLOR);
-			g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
+		// draw a circle with center at (x,y) with radius _JRADIUS
+		g.setColor(_JUNCTION_COLOR);
+		g.fillOval(x - _JRADIUS / 2, y - _JRADIUS / 2, _JRADIUS, _JRADIUS);
 
-			// draw the junction's identifier at (x,y)
-			g.setColor(_JUNCTION_LABEL_COLOR);
-			g.drawString(j.getId(), x, y);
-		
+		// draw the junction's identifier at (x,y)
+		g.setColor(_JUNCTION_LABEL_COLOR);
+		g.drawString(j.getId(), x, y);
+
 	}
 
 	// this method is used to update the preffered and actual size of the component,
@@ -235,56 +235,56 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 		g.setColor(arrowColor);
 		g.fillPolygon(xpoints, ypoints, 3);
 	}
-	
+
 	private void drawWeather(Graphics g, Road r, int i) {
-		int x = getWidth()-87;
-		int y = (i+1)*50 - 15;
+		int x = getWidth() - 87;
+		int y = (i + 1) * 50 - 15;
 		Image weather;
-		switch(r.getWeather()) {
-			case SUNNY:
-				weather = _sun;
-				break;
-			case CLOUDY:
-				weather = _cloud;
-				break;
-			case RAINY:
-				weather = _rain;
-				break;
-			case WINDY:
-				weather = _wind;
-				break;
-			default:
-				weather = _storm;
-				break;
+		switch (r.getWeather()) {
+		case SUNNY:
+			weather = _sun;
+			break;
+		case CLOUDY:
+			weather = _cloud;
+			break;
+		case RAINY:
+			weather = _rain;
+			break;
+		case WINDY:
+			weather = _wind;
+			break;
+		default:
+			weather = _storm;
+			break;
 		}
 		g.drawImage(weather, x, y, 32, 32, this);
 	}
-	
+
 	private void drawCont(Graphics g, Road r, int i) {
-		int x = getWidth()-50;
-		int y = (i+1)*50 - 15;
+		int x = getWidth() - 50;
+		int y = (i + 1) * 50 - 15;
 		Image cont;
-		int C = (int) Math.floor(Math.min((double) r.getTotalCO2()/(1.0 + (double) r.getContLimit()),1.0) / 0.19);
-		
-		switch(C) {
-			case 0:
-				cont = _cont0;
-				break;
-			case 1:
-				cont = _cont1;
-				break;
-			case 2:
-				cont = _cont2;
-				break;
-			case 3:
-				cont = _cont3;
-				break;
-			case 4:
-				cont = _cont4;
-				break;
-			default:
-				cont = _cont5;
-				break;
+		int C = (int) Math.floor(Math.min((double) r.getTotalCO2() / (1.0 + (double) r.getContLimit()), 1.0) / 0.19);
+
+		switch (C) {
+		case 0:
+			cont = _cont0;
+			break;
+		case 1:
+			cont = _cont1;
+			break;
+		case 2:
+			cont = _cont2;
+			break;
+		case 3:
+			cont = _cont3;
+			break;
+		case 4:
+			cont = _cont4;
+			break;
+		default:
+			cont = _cont5;
+			break;
 		}
 		g.drawImage(cont, x, y, 32, 32, this);
 	}
@@ -298,6 +298,7 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 		}
 		return i;
 	}
+
 	public void update(RoadMap map) {
 		SwingUtilities.invokeLater(() -> {
 			_map = map;
@@ -305,29 +306,28 @@ public class MapByRoadComponent extends JPanel implements TrafficSimObserver {
 		});
 	}
 
-	
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
 		update(map);
-		
+
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
 		update(map);
-		
+
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
 		update(map);
-		
+
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
 		update(map);
-		
+
 	}
 
 }

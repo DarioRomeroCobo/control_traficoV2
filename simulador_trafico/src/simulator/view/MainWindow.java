@@ -29,7 +29,6 @@ public class MainWindow extends JFrame {
 
 		JPanel viewsPanel = new JPanel(new GridLayout(1, 2));
 		mainPanel.add(viewsPanel, BorderLayout.CENTER);
-		
 
 		JPanel tablesPanel = new JPanel();
 		tablesPanel.setLayout(new BoxLayout(tablesPanel, BoxLayout.Y_AXIS));
@@ -60,11 +59,10 @@ public class MainWindow extends JFrame {
 		JPanel mapView = createViewPanel(new MapComponent(_ctrl), "Map");
 		mapView.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapView);
-		
+
 		JPanel mapByRoadComponent = createViewPanel(new MapByRoadComponent(_ctrl), "Map");
 		mapByRoadComponent.setPreferredSize(new Dimension(500, 400));
 		mapsPanel.add(mapByRoadComponent);
-		
 
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.pack();

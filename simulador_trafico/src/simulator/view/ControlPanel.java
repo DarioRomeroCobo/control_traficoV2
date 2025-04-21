@@ -22,7 +22,6 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private static final long serialVersionUID = 1L;
 	private Controller _ctrl;
 	private RoadMap map;
-	private Collection<Event> events;
 	private int time;
 	private boolean _stopped;
 	private List<JButton> buttons;
@@ -106,13 +105,14 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 		});
 
-		JSpinner spinnerTicks = new JSpinner(new SpinnerNumberModel(1, 1, 100, 1));
+		JSpinner spinnerTicks = new JSpinner(new SpinnerNumberModel(10, 1, 100, 1));
 
 		JButton runButton = new JButton(new ImageIcon("resources/icons/run.png"));
 		runButton.addActionListener(e -> {
 			_stopped = false;
 			enableToolbar();
 			run_sim((int) spinnerTicks.getValue());
+
 		});
 
 		JButton stopButton = new JButton(new ImageIcon("resources/icons/stop.png"));
@@ -180,10 +180,9 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 		return (JFrame) SwingUtilities.getWindowAncestor(this);
 	}
 
-	public void update(RoadMap map, Collection<Event> events, int time) {
+	public void update(RoadMap map, int time) {
 		SwingUtilities.invokeLater(() -> {
 			this.map = map;
-			this.events = events;
 			this.time = time;
 			repaint();
 		});
@@ -191,25 +190,25 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
-		update(map, events, time);
+		update(map, time);
 
 	}
 
 	@Override
 	public void onEventAdded(RoadMap map, Collection<Event> events, Event e, int time) {
-		update(map, events, time);
+		update(map, time);
 
 	}
 
 	@Override
 	public void onReset(RoadMap map, Collection<Event> events, int time) {
-		update(map, events, time);
+		update(map, time);
 
 	}
 
 	@Override
 	public void onRegister(RoadMap map, Collection<Event> events, int time) {
-		update(map, events, time);
+		update(map, time);
 	}
 
 }

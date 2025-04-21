@@ -2,6 +2,7 @@ package simulator.view;
 
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,6 @@ public class ChangeWeatherDialog extends JDialog {
 	private void initGUI() {
 		this.setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 
-		
 		JPanel interactivePanel = new JPanel();
 		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
 
@@ -70,11 +70,14 @@ public class ChangeWeatherDialog extends JDialog {
 		cancelButton.addActionListener(e -> setVisible(false));
 
 		JButton okButton = new JButton("OK");
-		okButton.addActionListener((ActionEvent e) -> {
-			List<Pair<String, Weather>> si = new ArrayList<>();
-			si.add(new Pair<>(rList.getSelectedItem().toString(), (Weather) weatherList.getSelectedItem()));
-			_ctrl.addEvent(new SetWeatherEvent((int) spinnerTicks.getValue() + currTime, si));
-			setVisible(false);
+		okButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				List<Pair<String, Weather>> si = new ArrayList<>();
+				si.add(new Pair<>(rList.getSelectedItem().toString(), (Weather) weatherList.getSelectedItem()));
+				_ctrl.addEvent(new SetWeatherEvent((int) spinnerTicks.getValue() + currTime, si));
+				setVisible(false);
+			}
 		});
 
 		panelButtons.add(cancelButton);
