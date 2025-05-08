@@ -20,8 +20,6 @@ public abstract class NewRoadEventBuilder extends Builder<Event> {
 		super(typeTag, desc);
 	}
 
-	
-
 	protected void initialize(JSONObject data) {
 		time = data.getInt("time");
 		id = data.getString("id");

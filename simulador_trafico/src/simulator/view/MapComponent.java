@@ -38,8 +38,6 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 	private RoadMap _map;
 
 	private Image _car;
-	
-	
 
 	MapComponent(Controller ctrl) {
 		initGUI();
@@ -110,24 +108,25 @@ public class MapComponent extends JPanel implements TrafficSimObserver {
 			if (v.getStatus() != VehicleStatus.ARRIVED) {
 
 				Road r = v.getRoad();
-	
+
 				// The calculation below compute the coordinate (vX,vY) of the vehicle on the
-				// corresponding road. It is calculated relatively to the length of the road, and
+				// corresponding road. It is calculated relatively to the length of the road,
+				// and
 				// the location on the vehicle.
 				int x1 = r.getSrc().getX();
 				int y1 = r.getSrc().getY();
 				int x2 = r.getDest().getX();
 				int y2 = r.getDest().getY();
 
-				double f = ((float)v.getLocation()) / r.getLength();
-				int vX = (int)(x1 + (x2-x1)*f); 
-				int vY = (int)(y1 + (y2-y1)*f);
+				double f = ((float) v.getLocation()) / r.getLength();
+				int vX = (int) (x1 + (x2 - x1) * f);
+				int vY = (int) (y1 + (y2 - y1) * f);
 
 				// Choose a color for the vehcile's label and background, depending on its
 				// contamination class
 				int vLabelColor = (int) (25.0 * (10.0 - (double) v.getContClass()));
 				g.setColor(new Color(0, vLabelColor, 0));
-				
+
 				// draw an image of a car (with circle as background) and it identifier
 				g.fillOval(vX - 1, vY - 6, 14, 14);
 				g.drawImage(_car, vX, vY - 6, 12, 12, this);

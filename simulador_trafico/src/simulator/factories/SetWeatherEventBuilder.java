@@ -31,12 +31,12 @@ public class SetWeatherEventBuilder extends Builder<Event> {
 			sw.add(new Pair<>(o.getString("road"), Weather.valueOf(o.getString("weather").toUpperCase())));
 
 		}
-		
-		/*JSONObject o;
-		for(Object obj: array) {
-			o = (JSONObject) obj;
-			sw.add(new Pair<>(o.getString("road"), Weather.valueOf(o.getString("weather").toUpperCase())));
-		}*/
+
+		/*
+		 * JSONObject o; for(Object obj: array) { o = (JSONObject) obj; sw.add(new
+		 * Pair<>(o.getString("road"),
+		 * Weather.valueOf(o.getString("weather").toUpperCase()))); }
+		 */
 
 		return new SetWeatherEvent(time, sw);
 	}

@@ -27,14 +27,25 @@ public class ChangeCO2ClassDialog extends JDialog {
 	private Controller _ctrl;
 	private List<Vehicle> vehicles;
 	private int currTime;
+	private JComboBox<Vehicle> vList;
 
-	public ChangeCO2ClassDialog(Frame parent, Controller _ctrl, List<Vehicle> vehicles, int currTime) {
+	public ChangeCO2ClassDialog(Frame parent) {
 		super(parent, "Change CO2 Class", true);
+		vList = new JComboBox<>();
+		initGUI();
+	}
+
+	public void set(Frame parent, Controller _ctrl, List<Vehicle> vehicles, int currTime) {
 		this._ctrl = _ctrl;
 		this.vehicles = vehicles;
 		this.currTime = currTime;
-		initGUI();
+		vList.removeAllItems();
+		for (Vehicle v : vehicles) {
+			vList.addItem(v);
+		}
+		vList.setSelectedIndex(0);
 		this.setLocationRelativeTo(parent);
+		this.setVisible(true);
 	}
 
 	private void initGUI() {
@@ -42,9 +53,6 @@ public class ChangeCO2ClassDialog extends JDialog {
 
 		JPanel interactivePanel = new JPanel();
 		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
-
-		JComboBox<Vehicle> vList = new JComboBox<>(vehicles.toArray(new Vehicle[0]));
-		vList.setSelectedIndex(0);
 
 		interactivePanel.add(Box.createHorizontalStrut(5));
 		interactivePanel.add(new JLabel("Vehicle: "));

@@ -29,7 +29,7 @@ public class SetContClassEvent extends Event {
 
 	@Override
 	public String toString() {
-		return "Change C02 class: " +cs ;
+		return "Change C02 class: " + cs;
 	}
 
 }

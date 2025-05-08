@@ -20,6 +20,7 @@ import simulator.control.Controller;
 import simulator.misc.Pair;
 import simulator.model.Road;
 import simulator.model.SetWeatherEvent;
+import simulator.model.Vehicle;
 import simulator.model.Weather;
 
 public class ChangeWeatherDialog extends JDialog {
@@ -28,14 +29,26 @@ public class ChangeWeatherDialog extends JDialog {
 	private Controller _ctrl;
 	private List<Road> roads;
 	private int currTime;
+	JComboBox<Road> rList;
 
-	public ChangeWeatherDialog(Frame parent, Controller _ctrl, List<Road> roads, int currTime) {
+	public ChangeWeatherDialog(Frame parent) {
 		super(parent, "Change Road Weather", true);
+		rList = new JComboBox<>();
+		initGUI();
+	}
+
+	public void set(Frame parent, Controller _ctrl, List<Road> roads, int currTime) {
 		this._ctrl = _ctrl;
 		this.roads = roads;
 		this.currTime = currTime;
-		initGUI();
+		rList.removeAllItems();
+		for (Road v : roads) {
+			rList.addItem(v);
+		}
+		rList.setSelectedIndex(0);
 		this.setLocationRelativeTo(parent);
+		this.setVisible(true);
+
 	}
 
 	private void initGUI() {
@@ -44,8 +57,6 @@ public class ChangeWeatherDialog extends JDialog {
 		JPanel interactivePanel = new JPanel();
 		interactivePanel.setLayout(new BoxLayout(interactivePanel, BoxLayout.X_AXIS));
 
-		JComboBox<Road> rList = new JComboBox<>(roads.toArray(new Road[0]));
-		rList.setSelectedIndex(0);
 
 		interactivePanel.add(Box.createHorizontalStrut(5));
 		interactivePanel.add(new JLabel("Road: "));

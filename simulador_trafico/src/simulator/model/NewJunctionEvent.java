@@ -2,7 +2,7 @@ package simulator.model;
 
 public class NewJunctionEvent extends Event {
 	private Junction j;
-	
+
 	public NewJunctionEvent(int time, String id, LightSwitchingStrategy lsStrategy, DequeuingStrategy dqStrategy,
 			int xCoor, int yCoor) {
 		super(time);
@@ -16,6 +16,6 @@ public class NewJunctionEvent extends Event {
 
 	@Override
 	public String toString() {
-		return "New Junction '" + j.getId()+"'";
+		return "New Junction '" + j.getId() + "'";
 	}
 }

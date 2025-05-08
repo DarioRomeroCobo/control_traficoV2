@@ -30,13 +30,13 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 
 	@Override
 	public int getRowCount() {
-		
+
 		return _events.size();
 	}
 
 	@Override
 	public int getColumnCount() {
-		
+
 		return _colNames.length;
 	}
 
@@ -54,13 +54,15 @@ public class EventsTableModel extends AbstractTableModel implements TrafficSimOb
 		return s;
 	}
 
-	public void update( Collection<Event> events) {
+	public void update(Collection<Event> events) {
 		SwingUtilities.invokeLater(() -> {
 			this._events = new ArrayList<>(events);
+			this._events.sort((e1, e2) -> Integer.compare(e1.getTime(), e2.getTime()));
 			fireTableStructureChanged();
 		});
 	}
 
+	
 	@Override
 	public void onAdvance(RoadMap map, Collection<Event> events, int time) {
 		update(events);

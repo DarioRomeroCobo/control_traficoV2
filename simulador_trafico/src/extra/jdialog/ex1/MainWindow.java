@@ -42,7 +42,7 @@ public class MainWindow extends JFrame {
 			dishes.add(new Dish("Yum Yum " + i));
 		}
 
-		int status = _dialog.open( simulator.view.ViewUtils.getWindow(this), dishes);
+		int status = _dialog.open(simulator.view.ViewUtils.getWindow(this), dishes);
 
 		if (status == 0) {
 			System.out.println("Canceled");

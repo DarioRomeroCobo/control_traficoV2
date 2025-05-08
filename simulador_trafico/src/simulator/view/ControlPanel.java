@@ -25,11 +25,15 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 	private int time;
 	private boolean _stopped;
 	private List<JButton> buttons;
+	private ChangeWeatherDialog weatherDialog;
+	private ChangeCO2ClassDialog co2ClassDialog;
 
 	ControlPanel(Controller ctrl) {
 		this._ctrl = ctrl;
 		_stopped = true;
 		buttons = new ArrayList<>();
+		co2ClassDialog = new ChangeCO2ClassDialog(getAncestor());
+		weatherDialog = new ChangeWeatherDialog(getAncestor());
 		initGui();
 		this._ctrl.addObserver(this);
 
@@ -80,10 +84,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ChangeCO2ClassDialog dialog = new ChangeCO2ClassDialog(getAncestor(), _ctrl, map.getVehicles(),
-							time);
-					dialog.setVisible(true);
-
+					co2ClassDialog.set(getAncestor(), _ctrl, map.getVehicles(), time);
 				} catch (IllegalArgumentException ex) {
 					JOptionPane.showMessageDialog(getAncestor(), "ERROR: no events loaded");
 				}
@@ -96,8 +97,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					ChangeWeatherDialog dialog = new ChangeWeatherDialog(getAncestor(), _ctrl, map.getRoads(), time);
-					dialog.setVisible(true);
+					weatherDialog.set(getAncestor(), _ctrl, map.getRoads(), time);
 				} catch (IllegalArgumentException ex) {
 					JOptionPane.showMessageDialog(getAncestor(), "ERROR: no events loaded");
 				}

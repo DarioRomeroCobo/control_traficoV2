@@ -20,7 +20,7 @@ public abstract class NewRoadEvent extends Event {
 		this.maxSpeed = maxSpeed;
 		this.weather = weather;
 	}
-	
+
 	@Override
 	public String toString() {
 		return id;
