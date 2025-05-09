@@ -165,7 +165,7 @@ public class ControlPanel extends JPanel implements TrafficSimObserver {
 				_ctrl.run(1);
 				SwingUtilities.invokeLater(() -> run_sim(n - 1));
 			} catch (Exception e) {
-				JOptionPane.showMessageDialog(getAncestor(), "Error at execute");
+				JOptionPane.showMessageDialog(getAncestor(), "Error at execute: "+ e.getMessage());
 
 				_stopped = true;
 				enableToolbar();

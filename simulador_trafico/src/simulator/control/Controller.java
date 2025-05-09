@@ -43,8 +43,8 @@ public class Controller {
 	public void run(int n, OutputStream out) {
 
 		PrintStream p = new PrintStream(out);
-		p.print("{");
-		p.print("\"states\":[");
+		p.println("{");
+		p.println("  \"states\": [");
 		for (int i = 0; i < n - 1; i++) {
 			_sim.advance();
 			p.print(_sim.report());
@@ -54,10 +54,10 @@ public class Controller {
 		// last step, only if 'n > 0'
 		if (n > 0) {
 			_sim.advance();
-			p.print(_sim.report());
+			p.println(_sim.report());
 		}
-		p.print("]");
-		p.print("}");
+		p.println("]");
+		p.println("}");
 
 	}
 
